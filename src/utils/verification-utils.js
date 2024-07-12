@@ -9,7 +9,7 @@ const verify = async (credential) => {
         throw new Error(resolutionResult.didResolutionMetadata.error)
     }
     let issuerDID = resolutionResult.didDocument;
-    let revocationUrl = "https://dristi-dev.digit.org/credentials-service/credentials/revocation-list";
+    let revocationUrl = "https://dristi-dev.pucar.org/credentials-service/credentials/revocation-list";
     revocationList = await downloadRevocationList(revocationUrl,issuerDID.id);
     console.log(revocationList);
     return  await verifyCredential(issuerDID, credential, revocationList);
