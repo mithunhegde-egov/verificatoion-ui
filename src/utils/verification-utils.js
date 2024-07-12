@@ -1,4 +1,4 @@
-import {verifyCredential/*, downloadRevocationList*/} from "verification-sdk";
+import {verifyCredential, downloadRevocationList} from "@sunbird-rc/verification-sdk";
 import {resolveDid} from "./did-utils";
 
 let revocationList = [];
@@ -8,9 +8,9 @@ const verify = async (credential) => {
     if (resolutionResult.didResolutionMetadata.error) {
         throw new Error(resolutionResult.didResolutionMetadata.error)
     }
-    let issuerDID = resolutionResult.didDocument;/*
-    let revocationUrl = "http://localhost:3000/credentials/revocation-list";*/
-    revocationList = /*await downloadRevocationList(issuerDID.id, revocationUrl)*/[];
+    let issuerDID = resolutionResult.didDocument;
+    let revocationUrl = "https://dristi-dev.digit.org/credentials/revocation-list";
+    revocationList = await downloadRevocationList(revocationUrl,issuerDID.id);
     return  await verifyCredential(issuerDID, credential, revocationList);
 }
 
